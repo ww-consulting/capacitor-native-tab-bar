@@ -1,0 +1,27 @@
+{
+  "name": "capacitor-native-tab-bar-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "ios": "vite build && cap sync ios && cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.4.1",
+    "@capacitor/ios": "^8.4.1",
+    "@ionic/vue": "8.8.4",
+    "@ionic/vue-router": "8.8.4",
+    "@ww-consulting/capacitor-native-tab-bar": "link:..",
+    "vue": "3.5.29",
+    "vue-router": "4.6.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.4.1",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "typescript": "~5.9.3",
+    "vite": "^6.4.1",
+    "vue-tsc": "^3.3.5"
+  }
+}

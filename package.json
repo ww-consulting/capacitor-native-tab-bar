@@ -1,0 +1,65 @@
+{
+  "name": "@ww-consulting/capacitor-native-tab-bar",
+  "version": "0.1.0",
+  "description": "Capacitor plugin that renders the app tab bar as a native iOS 26 Liquid Glass UITabBar",
+  "license": "MIT",
+  "author": "WW Consulting",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ww-consulting/capacitor-native-tab-bar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ww-consulting/capacitor-native-tab-bar/issues"
+  },
+  "homepage": "https://github.com/ww-consulting/capacitor-native-tab-bar#readme",
+  "keywords": [
+    "capacitor",
+    "capacitor-plugin",
+    "ios",
+    "tab-bar",
+    "liquid-glass",
+    "ionic"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "ios/Sources",
+    "Package.swift",
+    "WwConsultingCapacitorNativeTabBar.podspec"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm run typecheck && pnpm run lint && pnpm run build"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    }
+  },
+  "peerDependencies": {
+    "@capacitor/core": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/core": "^8.4.1",
+    "@eslint/js": "~9.39.2",
+    "eslint": "~9.39.2",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "~8.53.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@12.4.1"
+}

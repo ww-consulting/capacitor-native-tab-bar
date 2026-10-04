@@ -1,0 +1,11 @@
+:root {
+  --ion-color-primary: #e5484d;
+  --ion-color-primary-rgb: 229, 72, 77;
+  --ion-color-primary-contrast: #ffffff;
+}
+
+/* Glass mode: the native bar replaces the HTML one, whose buttons stay in the
+   DOM so native taps can be forwarded to them. */
+html.native-tab-bar ion-tab-bar {
+  display: none;
+}
