@@ -14,7 +14,7 @@ export interface NativeTabBarItem {
   key: string;
   /** Label shown below the icon. */
   title: string;
-  /** URL of a PNG rendered as template image, null for a title-only item. */
+  /** http(s) or base64 `data:` URL of a PNG rendered as template image, null for a title-only item. */
   iconUrl: string | null;
   /** Pixel scale the PNG was rendered at (defaults to 3). */
   iconScale?: number;

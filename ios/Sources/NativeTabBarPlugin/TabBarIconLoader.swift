@@ -24,10 +24,21 @@ final class TabBarIconLoader {
 
     /// Loads the icon at `url` and calls `completion` on the main queue.
     /// - Parameters:
-    ///   - url: PNG location.
+    ///   - url: PNG location, either http(s) or a base64 `data:` URL.
     ///   - scale: Pixel scale the PNG was rendered at.
     ///   - completion: Receives the template image, or nil when it could not be loaded.
     func load(url: URL, scale: CGFloat, completion: @escaping (UIImage?) -> Void) {
+        if url.scheme == "data" {
+            // Icons bundled with the web layer need neither the network nor the disk cache.
+            ioQueue.async {
+                let image = TabBarIconLoader.decodeDataURL(url).flatMap {
+                    TabBarIconLoader.templateImage(data: $0, scale: scale)
+                }
+                DispatchQueue.main.async { completion(image) }
+            }
+            return
+        }
+
         let fileURL = cacheFileURL(for: url)
         ioQueue.async {
             if let fileURL = fileURL, let data = try? Data(contentsOf: fileURL),
@@ -56,6 +67,16 @@ final class TabBarIconLoader {
         let digest = SHA256.hash(data: Data(url.absoluteString.utf8))
         let name = digest.map { String(format: "%02x", $0) }.joined()
         return directory.appendingPathComponent(name).appendingPathExtension("png")
+    }
+
+    /// Decodes the payload of a base64 `data:` URL. URLSession would load it as
+    /// well, but answers without an HTTP status, which the download path rejects.
+    private static func decodeDataURL(_ url: URL) -> Data? {
+        let string = url.absoluteString
+        guard let comma = string.firstIndex(of: ","), string[..<comma].hasSuffix(";base64") else {
+            return nil
+        }
+        return Data(base64Encoded: String(string[string.index(after: comma)...]))
     }
 
     private static func templateImage(data: Data, scale: CGFloat) -> UIImage? {

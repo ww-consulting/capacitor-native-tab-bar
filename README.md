@@ -59,7 +59,10 @@ Item kinds:
 
 ### Icons
 
-`iconUrl` must point to a PNG served over **http(s)**. The plugin loads it with `URLSession`, so bundled web assets (`capacitor://localhost/...`) do not work. The PNG is used as a template image: only its alpha channel counts, the bar tints it. Render it at `iconScale` (default 3, i.e. 75×75 px for a 25 pt icon). Icons are cached on disk per URL and never revalidated, so change the URL when an icon changes.
+`iconUrl` must be a PNG served over **http(s)** or a base64 **`data:`** URL (`data:image/png;base64,...`). Bundled web assets (`capacitor://localhost/...`) do not work, since the plugin loads remote icons with `URLSession`. The PNG is used as a template image: only its alpha channel counts, the bar tints it. Render it at `iconScale` (default 3, i.e. 75×75 px for a 25 pt icon).
+
+- **http(s)**: cached on disk per URL and never revalidated, so change the URL when an icon changes. The very first start without a network shows empty icon slots.
+- **`data:`**: decoded in place, without network or cache. Use it for icons shipped with the app, e.g. a PNG imported with Vite's `?inline` suffix.
 
 ## Using it with Ionic Vue
 
